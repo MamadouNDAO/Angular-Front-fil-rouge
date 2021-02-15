@@ -1,0 +1,43 @@
+
+<mat-toolbar class="my-toolbar">
+  <div fxFlex fxLayout="row" fxLayoutAlign="end start" class="mr-5 mt-2">
+    <button mat-raised-button  ><mat-icon>add</mat-icon>Ajouter</button>
+  </div>
+</mat-toolbar>
+
+<div class="containers" fxLayout="row wrapper" fxLayout.lt-sm="column"   fxLayoutAlign="center flex-start">
+
+  <ng-container   class="first" *ngFor="let grp of GrpComp">
+    <p-card  subheader="" fxFlex="0 1 calc(25.3% - 32px)" fxFlex.lt-md="0 1 calc(50% - 32px)" fxFlex.lt-sm="100%" class="carte" styleClass="p-card-shadow">
+      <p-header>
+        {{grp.libelle}}
+        <div fxFlex fxLayout="row" fxLayoutAlign="flex-end">
+          <mat-icon matTooltip="Éditer">create</mat-icon>
+          <mat-icon matTooltip="Supprimer" color="warn">highlight_off</mat-icon>
+        </div>
+      </p-header>
+      <p-accordion>
+        <p-accordionTab header="Description">
+          <p>{{grp.descriptif}}</p>
+        </p-accordionTab>
+      </p-accordion>
+      <ng-template pTemplate="footer" >
+        <p-accordion>
+          <p-accordionTab header="Compétences" id="firstaccordion" >
+            <p-listbox    [options]="grp.competences" optionLabel="libelle">
+              <div *ngFor="let comp of grp.competences" >{{comp.libelle}}</div>
+            </p-listbox>
+          </p-accordionTab>
+        </p-accordion>
+
+        <br>
+        <mat-divider></mat-divider>
+        <br>
+        <button mat-raised-button (click)="goToDetail(grp)"><mat-icon>launch</mat-icon>Détails</button>
+
+      </ng-template>
+    </p-card>
+  </ng-container>
+</div>
+
+

@@ -1,0 +1,34 @@
+<mat-tab-group style="height: 100%"  mat-stretch-tabs  mat-align-tabs="center" animationDuration="2000ms" >
+  <mat-tab label="Groupe de compétences">
+    <button mat-raised-button (click)="BackToComp()" ><mat-icon>arrow_back</mat-icon>Retour</button>
+    <div class="container">
+      <div class="p-grid">
+        <div class="p-col-12">
+          <p-scrollPanel [style]="{width: '100%', height: '200px'}">
+            <p-card  subheader="" styleClass="p-card-shadow">
+              <p-header>
+                TEST
+                <div fxFlex fxLayout="row" fxLayoutAlign="flex-end">
+                  <mat-icon matTooltip="Éditer">create</mat-icon>
+                  <mat-icon matTooltip="Supprimer" color="warn">highlight_off</mat-icon>
+                </div>
+              </p-header>
+              <p>TESTT</p>
+              <ng-template pTemplate="footer" >
+
+                <br>
+                <mat-divider></mat-divider>
+                <br>
+
+              </ng-template>
+            </p-card>
+          </p-scrollPanel>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- /.p-grid -->
+  </mat-tab>
+  <mat-tab [disabled]="true" label="Compétence"></mat-tab>
+</mat-tab-group>

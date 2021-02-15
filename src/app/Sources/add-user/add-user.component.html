@@ -1,0 +1,45 @@
+
+<div class="login-wrapper" fxLayout="row" fxLayoutAlign="center center">
+  <mat-card class="box">
+
+    <mat-card-header>
+      <mat-card-title>Nouveau utilisateur</mat-card-title>
+      <br>
+      <div>
+        <img [src]="url" alt="">
+      </div>
+    </mat-card-header>
+
+    <form class="example-form">
+      <input type="file" (change)="onselectfile($event)">
+      <mat-card-content>
+        <mat-form-field class="example-full-width">
+          <mat-label>Username</mat-label>
+          <input matInput placeholder="Username">
+        </mat-form-field>
+
+        <mat-form-field class="example-full-width">
+          <mat-label>Email</mat-label>
+          <input matInput placeholder="Email">
+        </mat-form-field>
+
+        <mat-form-field class="example-full-width">
+          <mat-label>Mot de passe</mat-label>
+          <input matInput placeholder="Mot de passe">
+        </mat-form-field>
+
+        <mat-form-field class="example-full-width">
+          <mat-label>Choisir un profil...</mat-label>
+          <mat-select>
+            <mat-option>admin</mat-option>
+            <mat-option>sidi</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+      </mat-card-content>
+
+      <button mat-stroked-button style="color: #008e8e"  class="btn-block">Enregistrer</button>
+
+    </form>
+  </mat-card>
+</div>

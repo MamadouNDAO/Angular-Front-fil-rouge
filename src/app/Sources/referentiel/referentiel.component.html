@@ -1,0 +1,156 @@
+<mat-tab-group  class="parents" style="height: 100%"  mat-stretch-tabs  mat-align-tabs="center">
+  <mat-tab label="Gestion des référentiels" infiniteScroll
+           infiniteScrollContainer=".mat-tab-body-content"
+           [fromRoot]="true"
+           [infiniteScrollDistance]="2"
+           [infiniteScrollThrottle]="50" (scrolled)="onScroll()">
+
+    <div *ngIf="!isAdd" fxFlex fxLayout="row" fxLayoutAlign="flex-end" class="mr-5 mt-2">
+      <button mat-raised-button (click)="runAdd()" ><mat-icon>add</mat-icon>Ajouter</button>
+    </div>
+    <div *ngIf="!isAdd && visible" class="container mt-5" >
+          <div  fxLayout="row wrapper" fxLayout.lt-sm="column"   fxLayoutAlign="center flex-start">
+            <ng-container
+
+              class="first" *ngFor="let ref of referentiel; let i = index">
+              <p-card  subheader="" fxFlex="0 1 calc(25.3% - 32px)" fxFlex.lt-md="0 1 calc(50% - 32px)" fxFlex.lt-sm="100%" class="carte p-shadow-6" styleClass="p-card-shadow">
+                <p-header>
+                  {{ref.libelle}}
+                  <div fxFlex fxLayout="row" fxLayoutAlign="flex-end">
+                    <mat-icon matTooltip="Éditer">create</mat-icon>
+                    <mat-icon style="cursor:pointer" (click)="onDelete(ref.id)" matTooltip="Supprimer" color="warn">highlight_off</mat-icon>
+                  </div>
+                </p-header>
+                  <ng-template pTemplate="body">
+                    <p-accordion>
+                      <p-accordionTab header="Critères admission">
+                        <p>{{ref.critereAdmission}}</p>
+                      </p-accordionTab>
+                    </p-accordion>
+                    <br>
+                    <p-accordion>
+                      <p-accordionTab header="Critère évaluation">
+                        <p>{{ref.critereEvaluation}}</p>
+                      </p-accordionTab>
+                    </p-accordion>
+                    <br>
+                    <p-accordion>
+                      <p-accordionTab header="Groupe de compétences" id="firstaccordion" >
+                        <p-listbox    [options]="ref.groupeCompetences" optionLabel="libelle">
+                          <div *ngFor="let grp of ref.groupeCompetences" >{{grp}}</div>
+                        </p-listbox>
+                      </p-accordionTab>
+                    </p-accordion>
+                  </ng-template>
+                <ng-template pTemplate="footer" >
+
+
+                  <button mat-raised-button (click)="detail(ref)" ><mat-icon>launch</mat-icon>Détails</button>
+
+                </ng-template>
+              </p-card>
+            </ng-container>
+
+
+            <br>
+
+          </div>
+    </div>
+
+          <div *ngIf="notEmptyRef" class="row pb-5" >
+            <div class="col-md-11 p-5">
+              <ngx-spinner
+                bdOpacity = 0.95
+                bdColor=""
+                size="default"
+                color="#eb751a"
+                type="ball-pulse-sync"
+                [fullScreen]="false">
+
+              </ngx-spinner>
+            </div>
+
+          </div>
+
+
+
+
+<!--Formulaire ajout référentiel-->
+
+<div *ngIf="isAdd" class="login-wrapper" fxLayout="row" fxLayoutAlign="center">
+  <mat-card class="box">
+
+    <mat-card-header>
+      <mat-card-title>Nouveau référentiel</mat-card-title>
+      <br>
+
+    </mat-card-header>
+
+    <form class="example-form" [formGroup]="addRef">
+      <mat-card-content>
+        <mat-form-field class="example-full-width">
+          <mat-label>Libellé</mat-label>
+          <input formControlName="libelle" matInput placeholder="libellé">
+        </mat-form-field>
+
+        <mat-form-field class="example-full-width">
+          <mat-label>Présentation</mat-label>
+          <textarea formControlName="presentation" matInput placeholder="présentation"></textarea>
+        </mat-form-field>
+
+        <mat-form-field class="example-full-width" >
+          <mat-label>Affecter des groupes de compétence</mat-label>
+          <mat-chip-list #chipList aria-label="Country selection" formControlName="groupes">
+            <mat-chip style="background:#eb751a; color:#ffffff"
+              *ngFor="let country of grpComp"
+              [selectable]="selectable"
+              [removable]="removable"
+              (removed)="remove(country)"
+              >
+              {{country}}
+              <mat-icon style="color:#fff;" matChipRemove *ngIf="removable">cancel</mat-icon>
+            </mat-chip>
+
+            <input
+              placeholder="Affecter des groupes de compétence ..."
+              #countryInput
+              [formControl]="refCtrl"
+              [matAutocomplete]="auto"
+              [matChipInputFor]="chipList"
+              [matChipInputSeparatorKeyCodes]="separatorKeysCodes">
+          </mat-chip-list>
+          <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+            <mat-option *ngFor="let country of filteredGrpComp | async" [value]="country">
+              {{country}}
+            </mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
+
+        <mat-form-field class="example-full-width">
+          <mat-label>Critères évaluation</mat-label>
+          <textarea formControlName="critereEvaluation" matInput placeholder="Critères évaluation"></textarea>
+        </mat-form-field>
+
+        <mat-form-field class="example-full-width">
+          <mat-label>Critères admission</mat-label>
+          <textarea formControlName="critereAdmission" matInput placeholder="Critères admission"></textarea>
+        </mat-form-field>
+
+        <input type="file" (change)="onselectfile($event)" placeholder="Choisir le programme">
+
+      </mat-card-content>
+
+      <button mat-stroked-button style="color: #008e8e" (click)="saveRef()" class="btn-block">Enregistrer</button>
+
+    </form>
+  </mat-card>
+</div>
+
+    <div *ngIf="!visible">
+      <pdf-viewer [src]="downloadLink" [render-text]="true" style="display: block;">
+
+      </pdf-viewer>
+    </div>
+
+  </mat-tab>
+</mat-tab-group>

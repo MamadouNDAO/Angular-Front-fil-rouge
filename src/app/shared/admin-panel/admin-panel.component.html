@@ -1,0 +1,28 @@
+<mat-nav-list>
+  <div class="profile-card">
+    <br>
+    <br>
+    <div class="header">
+      <h2 style="color: #008e8e">Mamadou NDAO</h2>
+
+    </div>
+    <img src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Mamadou ndao">
+    <h4 style="font-size: 13px; font-style: italic">Administrateur</h4>
+  </div>
+  <mat-divider></mat-divider>
+  <h2 matSubheader>Dashbord</h2>
+  <mat-divider></mat-divider>
+  <a mat-list-item routerLinkActive="list-item-active" [routerLink]="['users']"><mat-icon>supervisor_account</mat-icon>Gestion des utilisateurs</a>
+  <mat-divider></mat-divider>
+  <a mat-list-item routerLinkActive="list-item-active" [matMenuTriggerFor]="menu"><mat-icon>settings</mat-icon>Paramètres</a>
+  <mat-menu #menu="matMenu">
+    <a mat-menu-item [routerLink]="['competences']">Compétences</a>
+    <a mat-menu-item [routerLink]="['referentiels']">Référentiels</a>
+    <a mat-menu-item>Promos</a>
+  </mat-menu>
+  <mat-divider></mat-divider>
+  <!--Gestion User-->
+
+  <br>
+  <br>
+</mat-nav-list>

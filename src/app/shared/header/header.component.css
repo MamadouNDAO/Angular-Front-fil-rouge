@@ -1,0 +1,16 @@
+mat-toolbar{
+  background-color: #008e8e;
+  color: #fff;
+
+  /*border-bottom: 3px solid #eb751a;*/
+}
+::ng-deep .mat-toolbar{
+
+  /*position: absolute;*/
+
+  /*z-index: 10;*/
+}
+.ma-btn{
+  cursor: pointer;
+}
+

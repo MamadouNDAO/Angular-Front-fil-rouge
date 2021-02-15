@@ -1,0 +1,34 @@
+.container{
+  height:100%;
+  background-image: url(~src/assets/images/bg04.jpg);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+
+}
+mat-card{
+
+}
+mat-icon{
+  color: #008e8e;
+}
+.ma-btn{
+  background-color:#eb751a;
+  color: #fff;
+}
+img{
+  height: 100px;
+  width: auto;
+}
+::ng-deep .mat-form-field-appearance-outline.mat-focused .mat-form-field-outline-thick {
+  color: #008e8e;
+}
+
+::ng-deep .mat-form-field-label {
+  color: #008e8e;
+
+}
+
+::ng-deep .mat-form-field.mat-focused .mat-form-field-label {
+  color: #008e8e;
+}

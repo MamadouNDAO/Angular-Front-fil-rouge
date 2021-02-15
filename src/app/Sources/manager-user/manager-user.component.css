@@ -1,0 +1,12 @@
+::ng-deep .mat-tab-list .mat-tab-labels .mat-tab-label {
+  color: #008e8e;
+}
+:host ::ng-deep .mat-tab-header {
+  background-color: #ffffff;
+
+}
+:host ::ng-deep .mat-tab-header .mat-ink-bar{
+  background: #eb751a;
+  height: 4px;
+}
+

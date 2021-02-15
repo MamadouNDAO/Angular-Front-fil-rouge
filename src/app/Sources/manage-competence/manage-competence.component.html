@@ -1,0 +1,10 @@
+<mat-tab-group (selectedTabChange)="onClick()" class="parents" style="height: 100%"  mat-stretch-tabs  mat-align-tabs="center" animationDuration="2000ms" >
+    <mat-tab label="Groupe de compétences"  >
+      <app-list-grp-competence ></app-list-grp-competence>
+    </mat-tab>
+
+    <mat-tab label="Compétence">
+      <app-list-competence></app-list-competence>
+    </mat-tab>
+
+</mat-tab-group>

@@ -1,0 +1,54 @@
+app-admin-panel{
+color: #eb751a;
+}
+mat-drawer-container{
+  height: auto;
+  background: #fafcfc;
+  /*border: solid 3px red;*/
+  overflow: hidden;
+}
+
+mat-drawer{
+  width: 15rem;
+  background-color: #fff;
+  /*position: fixed;*/
+  /*top: 65px;*/
+  /*border-right: #eb751a 3px solid;*/
+  /*border-radius: 5px;*/
+  /*border-top: 3px solid #eb751a;*/
+}
+mat-drawer-content{
+  /*border: solid 3px green;*/
+  overflow: auto;
+  height: 600px;
+  width: auto;
+  overflow-x: hidden;
+}
+mat-drawer-content::-webkit-scrollbar{
+  width: 0.8rem;
+}
+mat-drawer-content::-webkit-scrollbar-track{
+  background: darkgrey;
+
+}
+mat-drawer-content::-webkit-scrollbar-thumb{
+  background: #eb751a;
+  border-radius: 5px;
+}
+
+mat-drawer{
+  /*list-style: none;*/
+  /*padding: 0;*/
+  /*margin: 0;*/
+  /*display: flex;*/
+  /*flex-direction: column;*/
+  /*align-items: center;*/
+  /*transition: width 200ms ease;*/
+}
+
+/*app-header{*/
+/*  position:fixed;*/
+/*  top: 0;*/
+/*  z-index: 100;*/
+/*  width: 100%;*/
+/*}*/

@@ -1,0 +1,48 @@
+
+<p-confirmDialog header="Confirmation" icon="pi pi-exclamation-triangle"></p-confirmDialog>
+<div class="mat-elevation-z8 ma-table">
+
+  <table mat-table [dataSource]="users">
+    <ng-container matColumnDef="button">
+      <th mat-header-cell *matHeaderCellDef >
+        <button (click)="newUser()" mat-raised-button matTooltip="Ajouter un utilisateur"><mat-icon>add</mat-icon>Ajouter</button>
+      </th>
+      <td mat-cell *matCellDef="let row">
+        <button mat-icon-button color="warn" matTooltip="Supprimer un utilisateur"><mat-icon (click)="onDelete(row.id)">delete</mat-icon></button>
+      </td>
+    </ng-container>
+
+    <!-- ID Column -->
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef> ID </th>
+      <td mat-cell *matCellDef="let row"> {{row.id}} </td>
+    </ng-container>
+
+    <!-- Progress Column -->
+    <ng-container matColumnDef="prenom">
+      <th mat-header-cell *matHeaderCellDef> Prenom </th>
+      <td mat-cell *matCellDef="let row"> {{row.prenom}} </td>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="nom">
+      <th mat-header-cell *matHeaderCellDef> Name </th>
+      <td mat-cell *matCellDef="let row"> {{row.nom}} </td>
+    </ng-container>
+
+    <!-- Action Column -->
+    <ng-container matColumnDef="action">
+      <th mat-header-cell *matHeaderCellDef> Action </th>
+      <td mat-cell *matCellDef="let row">
+        <button mat-icon-button style="color: #008e8e" matTooltip="Modifier un utilisateur"><mat-icon>launch</mat-icon></button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+
+  </table>
+
+  <mat-paginator [length]="lines" [pageSize]="10" [pageIndex]="" (page)="getPaginator($event)" showFirstLastButtons ></mat-paginator>
+</div>
+

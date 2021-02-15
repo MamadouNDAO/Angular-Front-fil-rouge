@@ -1,0 +1,189 @@
+
+<p-confirmDialog header="Confirmation" icon="pi pi-exclamation-triangle"></p-confirmDialog>
+<button *ngIf="isAdd || isEdite" mat-raised-button (click)="BackToComp()" ><mat-icon>arrow_back</mat-icon>Retour</button>
+
+<!--LISTE DES COMPETENCES--->
+<div class="container" *ngIf="isActive">
+
+  <h2 class="text-center">Liste des compétences</h2>
+  <div  fxLayout="row" fxLayoutAlign="flex-end">
+    <button mat-raised-button matTooltip="Ajouter" (click)="newComp()"><mat-icon>add</mat-icon>Nouveau</button>
+  </div>
+  <ng-container>
+  <div class="p-grid full p-shadow-3"   >
+
+    <div class="p-col-6 parent">
+      <mat-form-field appearance="fill" style="width:98%" >
+        <mat-label>Filter par groupe de compétences</mat-label>
+        <mat-select msInfiniteScroll (infiniteScroll)="onGetGroup()" >
+          <mat-option style="font-style: italic" (click)="reloadComp()">--Aucun filtre--</mat-option>
+          <mat-option *ngFor="let grp of grps" (click)="monGrp(grp)" [value]="grp">{{grp.libelle}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <cdk-virtual-scroll-viewport (scroll)="onScroll()" #scroller itemSize="48" class="comp">
+
+          <mat-selection-list  [multiple]="false" >
+            <mat-list-option *cdkVirtualFor="let competence of competences" [value]="competence" (click)="showComp(competence)">
+              {{competence.libelle}}
+            </mat-list-option>
+          </mat-selection-list>
+
+      </cdk-virtual-scroll-viewport>
+    </div>
+
+    <div class="p-col-6">
+      <mat-tab-group *ngIf="isChecked"  style="height: 100%"    mat-align-tabs="center" animationDuration="1000ms" >
+        <mat-tab   *ngFor="let niveau of niveaux " label="{{niveau.libelle}}">
+          <div class="p-grid cadre">
+            <div class="p-col-6 alfa">
+              <h3 class="titles">Criteres d'évaluation</h3>
+
+              {{niveau.critereEvaluation}}
+            </div>
+            <div class="p-col-6">
+              <h3 class="titles">Groupe d'actions à réaliser</h3>
+              {{niveau.groupeAction}}
+            </div>
+          </div>
+
+
+        </mat-tab>
+
+      </mat-tab-group>
+    </div>
+  </div>
+  <br>
+  <button  [disabled]="!isChecked" (click)="edit()" mat-raised-button><mat-icon>launch</mat-icon>Modifier</button>
+  <button [disabled]="!isChecked" (click)="delete()" mat-raised-button><mat-icon>delete</mat-icon>Supprimer</button>
+  </ng-container>
+  <br>
+  <br>
+</div>
+
+<!--FIN LISTE DES COMPETENCES--->
+
+<br><br>
+<!--FORMULAIRE DE MODIFICATION D'UNE COMPETENCE--->
+<div class="login-wrapper" fxLayout="row" fxLayoutAlign="center center" *ngIf="isEdite">
+  <mat-card class="box">
+
+    <mat-card-header>
+      <mat-card-title>Modifier la compétence</mat-card-title>
+      <br>
+
+    </mat-card-header>
+
+    <form class="example-form" [formGroup]="updatecomp">
+
+      <mat-card-content *ngFor="let comp of compEditing">
+        <div>
+          <mat-form-field class="example-full-width">
+            <mat-label>Libellé</mat-label>
+
+            <input formControlName="libelle" matInput  *ngFor="let comp of compEditing"  [value]="comp.libelle">
+
+          </mat-form-field>
+          <mat-form-field class="example-full-width">
+            <mat-label>Descriptif</mat-label>
+            <input formControlName="descriptif" matInput *ngFor="let comp of compEditing"  [value]="comp.descriptif">
+          </mat-form-field>
+
+        </div>
+
+        <div>
+            <mat-tab-group formArrayName="niveau"  class="parents" style="height: 100%"  mat-stretch-tabs  mat-align-tabs="center" animationDuration="2000ms" >
+
+              <mat-tab *ngFor="let niv of comp.niveau; let i = index"  [formGroupName]="i" label="{{niv.libelle}}">
+
+                <div class="p-grid cadres" >
+
+                  <div class="p-col-6 alfa">
+                    <h3 class="titles">Criteres d'évaluation</h3>
+                    <mat-form-field class="example-full-width text">
+                      <mat-label></mat-label>
+                      <textarea formControlName="critereEvaluation" matInput>{{niv.critereEvaluation}}</textarea>
+                    </mat-form-field>
+                  </div>
+
+                  <div class="p-col-6">
+                    <h3 class="titles">Groupe d'actions à réaliser</h3>
+                    <mat-form-field class="example-full-width text">
+                      <mat-label></mat-label>
+                      <textarea formControlName="groupeAction" matInput>{{niv.groupeAction}}</textarea>
+                    </mat-form-field>
+                  </div>
+
+                </div>
+              </mat-tab>
+
+            </mat-tab-group>
+        </div>
+      </mat-card-content>
+
+      <button mat-stroked-button style="color: #008e8e" (click)="OnUpdateComp()" class="btn-block">Enregistrer</button>
+
+    </form>
+  </mat-card>
+</div>
+<!--FIN FORMULAIRE DE MODIFICATION D'UNE COMPETENCE--->
+
+<!--FORMULAIRE D'AJOUT D'UNE COMPETENCE--->
+<div class="login-wrapper" fxLayout="row" fxLayoutAlign="center center" *ngIf="isAdd">
+  <mat-card class="box">
+    <div  fxLayout="row" fxLayoutAlign="flex-end">
+      <mat-icon matTooltip="Annuler l'ajout" color="warn">highlight_off</mat-icon>
+    </div>
+    <mat-card-header>
+      <mat-card-title>Ajout d'une nouvelle compétence</mat-card-title>
+      <br>
+    </mat-card-header>
+    <form class="example-form" [formGroup]="addcomp">
+      <mat-card-content>
+        <div>
+          <mat-form-field class="example-full-width">
+            <mat-label>Libellé</mat-label>
+            <input formControlName="libelle" matInput placeholder="Libellé">
+          </mat-form-field>
+          <mat-form-field class="example-full-width">
+            <mat-label>Descriptif</mat-label>
+            <input formControlName="descriptif" matInput placeholder="Descriptif">
+          </mat-form-field>
+
+          <mat-form-field class="example-full-width">
+            <mat-label>Affecter un groupe de compétences</mat-label>
+            <mat-select formControlName="groupe">
+              <mat-option  *ngFor="let grp of grps"  [value]="grp.id">{{grp.libelle}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div>
+          <mat-tab-group formArrayName="niveau" class="parents" style="height: 100%"  mat-stretch-tabs  mat-align-tabs="center" animationDuration="2000ms" >
+            <mat-tab *ngFor="let niv of _niveaux.controls; let i = index"  [formGroupName]="i" label="Niveau {{i+1}}">
+              <div class="p-grid cadres" >
+                <div class="p-col-6 alfa">
+                  <h3 class="titles">Criteres d'évaluation</h3>
+                  <mat-form-field class="example-full-width text">
+                    <mat-label></mat-label>
+                    <textarea formControlName="critereEvaluation" matInput></textarea>
+                  </mat-form-field>
+                </div>
+                <div class="p-col-6">
+                  <h3 class="titles">Groupe d'actions à réaliser</h3>
+                  <mat-form-field class="example-full-width text">
+                    <mat-label></mat-label>
+                    <textarea formControlName="groupeAction" matInput></textarea>
+                  </mat-form-field>
+                </div>
+              </div>
+            </mat-tab>
+
+          </mat-tab-group>
+        </div>
+      </mat-card-content>
+
+      <button mat-stroked-button style="color: #008e8e" (click)="saveComp()" class="btn-block">Enregistrer</button>
+
+    </form>
+  </mat-card>
+</div>

@@ -1,0 +1,30 @@
+
+<div class="container">
+  <div class="alfa"  fxLayoutAlign="center center" fxFlexFill >
+    <mat-card  fxFlex="30" >
+        <img src="./assets/images/bfg.png">
+
+      <form fxLayoutAlign="stretch" fxLayout="column" [formGroup]="signin">
+        <mat-form-field appearance="outline">
+          <mat-label>Username</mat-label>
+          <input matInput placeholder="Username" formControlName="username" required>
+          <mat-icon matSuffix>person</mat-icon>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Mot de passe</mat-label>
+          <input matInput placeholder="Mot de passe" type="password" formControlName="password" required>
+          <mat-icon matSuffix>lock</mat-icon>
+        </mat-form-field>
+
+        <button [disabled]="isLoading" mat-raised-button class="ma-btn" (click)="login()">
+          Se connecter
+        </button>
+      </form>
+      <mat-card fxLayoutAlign="center center" fxFlexFill *ngIf="isLoading">
+        <img style="height: 20px" src="assets/images/30.gif"/>
+      </mat-card>
+    </mat-card>
+  </div>
+
+</div>
+
